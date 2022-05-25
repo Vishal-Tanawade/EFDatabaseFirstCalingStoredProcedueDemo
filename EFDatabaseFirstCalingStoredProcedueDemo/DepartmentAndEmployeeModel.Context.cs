@@ -30,7 +30,7 @@ namespace EFDatabaseFirstCalingStoredProcedueDemo
         public virtual DbSet<Department> Departments { get; set; }
         public virtual DbSet<Employee> Employees { get; set; }
     
-        public virtual int SPAddEmployees(string empName, Nullable<int> deptId, Nullable<int> courseDuration)
+        public virtual ObjectResult<Employee> SPAddEmployees(string empName, Nullable<int> deptId, Nullable<int> courseDuration)
         {
             var empNameParameter = empName != null ?
                 new ObjectParameter("EmpName", empName) :
@@ -44,24 +44,55 @@ namespace EFDatabaseFirstCalingStoredProcedueDemo
                 new ObjectParameter("courseDuration", courseDuration) :
                 new ObjectParameter("courseDuration", typeof(int));
     
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("SPAddEmployees", empNameParameter, deptIdParameter, courseDurationParameter);
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Employee>("SPAddEmployees", empNameParameter, deptIdParameter, courseDurationParameter);
         }
     
-        public virtual int SPDeleteEmployee(Nullable<int> empid)
+        public virtual ObjectResult<Employee> SPAddEmployees(string empName, Nullable<int> deptId, Nullable<int> courseDuration, MergeOption mergeOption)
+        {
+            var empNameParameter = empName != null ?
+                new ObjectParameter("EmpName", empName) :
+                new ObjectParameter("EmpName", typeof(string));
+    
+            var deptIdParameter = deptId.HasValue ?
+                new ObjectParameter("DeptId", deptId) :
+                new ObjectParameter("DeptId", typeof(int));
+    
+            var courseDurationParameter = courseDuration.HasValue ?
+                new ObjectParameter("courseDuration", courseDuration) :
+                new ObjectParameter("courseDuration", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Employee>("SPAddEmployees", mergeOption, empNameParameter, deptIdParameter, courseDurationParameter);
+        }
+    
+        public virtual ObjectResult<Employee> SPDeleteEmployee(Nullable<int> empid)
         {
             var empidParameter = empid.HasValue ?
                 new ObjectParameter("Empid", empid) :
                 new ObjectParameter("Empid", typeof(int));
     
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("SPDeleteEmployee", empidParameter);
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Employee>("SPDeleteEmployee", empidParameter);
         }
     
-        public virtual ObjectResult<SPSelectEmployee_Result> SPSelectEmployee()
+        public virtual ObjectResult<Employee> SPDeleteEmployee(Nullable<int> empid, MergeOption mergeOption)
         {
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<SPSelectEmployee_Result>("SPSelectEmployee");
+            var empidParameter = empid.HasValue ?
+                new ObjectParameter("Empid", empid) :
+                new ObjectParameter("Empid", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Employee>("SPDeleteEmployee", mergeOption, empidParameter);
         }
     
-        public virtual int SPUpdateEmployee(Nullable<int> empid, string empName, Nullable<int> deptId, Nullable<int> courseDuration)
+        public virtual ObjectResult<Employee> SPSelectEmployee()
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Employee>("SPSelectEmployee");
+        }
+    
+        public virtual ObjectResult<Employee> SPSelectEmployee(MergeOption mergeOption)
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Employee>("SPSelectEmployee", mergeOption);
+        }
+    
+        public virtual ObjectResult<Employee> SPUpdateEmployee(Nullable<int> empid, string empName, Nullable<int> deptId, Nullable<int> courseDuration)
         {
             var empidParameter = empid.HasValue ?
                 new ObjectParameter("Empid", empid) :
@@ -79,7 +110,28 @@ namespace EFDatabaseFirstCalingStoredProcedueDemo
                 new ObjectParameter("courseDuration", courseDuration) :
                 new ObjectParameter("courseDuration", typeof(int));
     
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("SPUpdateEmployee", empidParameter, empNameParameter, deptIdParameter, courseDurationParameter);
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Employee>("SPUpdateEmployee", empidParameter, empNameParameter, deptIdParameter, courseDurationParameter);
+        }
+    
+        public virtual ObjectResult<Employee> SPUpdateEmployee(Nullable<int> empid, string empName, Nullable<int> deptId, Nullable<int> courseDuration, MergeOption mergeOption)
+        {
+            var empidParameter = empid.HasValue ?
+                new ObjectParameter("Empid", empid) :
+                new ObjectParameter("Empid", typeof(int));
+    
+            var empNameParameter = empName != null ?
+                new ObjectParameter("EmpName", empName) :
+                new ObjectParameter("EmpName", typeof(string));
+    
+            var deptIdParameter = deptId.HasValue ?
+                new ObjectParameter("DeptId", deptId) :
+                new ObjectParameter("DeptId", typeof(int));
+    
+            var courseDurationParameter = courseDuration.HasValue ?
+                new ObjectParameter("courseDuration", courseDuration) :
+                new ObjectParameter("courseDuration", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Employee>("SPUpdateEmployee", mergeOption, empidParameter, empNameParameter, deptIdParameter, courseDurationParameter);
         }
     }
 }
