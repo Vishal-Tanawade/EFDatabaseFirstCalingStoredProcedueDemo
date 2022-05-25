@@ -1,4 +1,4 @@
-EFDatabaseFirstCalingStoredProcedueDemo
+EFDatabaseFirstCalingStoredProcedueDemo 25 May 2022
 
 
 1) right click on .edmx 
