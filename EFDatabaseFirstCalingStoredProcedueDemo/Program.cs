@@ -64,8 +64,17 @@ namespace EFDatabaseFirstCalingStoredProcedueDemo
                  new SqlParameter("@DeptID",employee.DeptID),
                  new SqlParameter("@CourseDuration",employee.CourseDuration)
             };
-            var data = context.Database.ExecuteSqlCommand("SPUpdateEmployee @EmpID , @EmpName , @DeptID , @CourseDuration", parameters2);
-            Console.WriteLine("Row changed="+data);
+            //var data = context.Database.ExecuteSqlCommand("SPUpdateEmployee @EmpID , @EmpName , @DeptID , @CourseDuration", parameters2);
+            //Console.WriteLine("Row changed="+data);
+
+
+            //DELETE EMPLOYEE
+
+            var data = context.Database.ExecuteSqlCommand("SPDeleteEmployee @EmpID", new SqlParameter("@EmpID", 1034));
+            Console.WriteLine($"Records get delete : {data}");
+            Console.ReadLine();
+
+
 
             Console.Read();
         }
