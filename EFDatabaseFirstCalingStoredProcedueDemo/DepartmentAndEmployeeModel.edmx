@@ -106,16 +106,16 @@
             <End Role="Department" EntitySet="Departments" />
             <End Role="Employee" EntitySet="Employees" />
           </AssociationSet>
-          <FunctionImport Name="SPAddEmployees">
+          <FunctionImport Name="SPAddEmployees" EntitySet="Employees" ReturnType="Collection(GN22ADMDNF001Model.Employee)">
             <Parameter Name="EmpName" Mode="In" Type="String" />
             <Parameter Name="DeptId" Mode="In" Type="Int32" />
             <Parameter Name="courseDuration" Mode="In" Type="Int32" />
           </FunctionImport>
-          <FunctionImport Name="SPDeleteEmployee">
+          <FunctionImport Name="SPDeleteEmployee" EntitySet="Employees" ReturnType="Collection(GN22ADMDNF001Model.Employee)">
             <Parameter Name="Empid" Mode="In" Type="Int32" />
           </FunctionImport>
-          <FunctionImport Name="SPSelectEmployee" ReturnType="Collection(GN22ADMDNF001Model.SPSelectEmployee_Result)" />
-          <FunctionImport Name="SPUpdateEmployee">
+          <FunctionImport Name="SPSelectEmployee" EntitySet="Employees" ReturnType="Collection(GN22ADMDNF001Model.Employee)" />
+          <FunctionImport Name="SPUpdateEmployee" EntitySet="Employees" ReturnType="Collection(GN22ADMDNF001Model.Employee)">
             <Parameter Name="Empid" Mode="In" Type="Int32" />
             <Parameter Name="EmpName" Mode="In" Type="String" />
             <Parameter Name="DeptId" Mode="In" Type="Int32" />
@@ -160,17 +160,6 @@
           <FunctionImportMapping FunctionImportName="SPAddEmployees" FunctionName="GN22ADMDNF001Model.Store.SPAddEmployees" />
           <FunctionImportMapping FunctionImportName="SPDeleteEmployee" FunctionName="GN22ADMDNF001Model.Store.SPDeleteEmployee" />
           <FunctionImportMapping FunctionImportName="SPSelectEmployee" FunctionName="GN22ADMDNF001Model.Store.SPSelectEmployee">
-            <ResultMapping>
-              <ComplexTypeMapping TypeName="GN22ADMDNF001Model.SPSelectEmployee_Result">
-                <ScalarProperty Name="EmpID" ColumnName="EmpID" />
-                <ScalarProperty Name="EmpName" ColumnName="EmpName" />
-                <ScalarProperty Name="DeptID" ColumnName="DeptID" />
-                <ScalarProperty Name="CourseDuration" ColumnName="CourseDuration" />
-                <ScalarProperty Name="DeptLoc" ColumnName="DeptLoc" />
-                <ScalarProperty Name="DeptName" ColumnName="DeptName" />
-                <ScalarProperty Name="SALARY_RANGE" ColumnName="SALARY_RANGE" />
-              </ComplexTypeMapping>
-            </ResultMapping>
           </FunctionImportMapping>
           <FunctionImportMapping FunctionImportName="SPUpdateEmployee" FunctionName="GN22ADMDNF001Model.Store.SPUpdateEmployee" />
         </EntityContainerMapping>
