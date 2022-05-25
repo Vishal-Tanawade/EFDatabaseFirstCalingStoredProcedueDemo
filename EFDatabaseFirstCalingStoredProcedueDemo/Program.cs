@@ -10,6 +10,8 @@ namespace EFDatabaseFirstCalingStoredProcedueDemo
     {
         static void Main(string[] args)
         {
+           
+
         }
     }
 }
