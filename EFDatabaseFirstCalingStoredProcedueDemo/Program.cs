@@ -42,9 +42,30 @@ namespace EFDatabaseFirstCalingStoredProcedueDemo
            };
             //ADD EMPLOYEE
             //var data2 = context.SPAddEmployees("Vishal", 1, 45); //error
-           var data2 = context.Database.ExecuteSqlCommand("SPAddEmployees @EmpName , @DeptID , @CourseDuration", parameters);
-            Console.WriteLine("Data inserted , rows changed =" + data2); //==> data2=1
-            context.SaveChanges();
+          // var data2 = context.Database.ExecuteSqlCommand("SPAddEmployees @EmpName , @DeptID , @CourseDuration", parameters);
+         //   Console.WriteLine("Data inserted , rows changed =" + data2); //==> data2=1
+                                                                         //context.SaveChanges(); // this line is not required as we directly calling procedure
+
+            //*********************** Update ***************
+
+            employee = new Employee()
+            {
+                EmpID = 1032,
+                EmpName = "sameer sonne",
+                DeptID = 1,
+                CourseDuration = 40
+
+            };
+       
+
+            SqlParameter[] parameters2 = new SqlParameter[]{
+                 new SqlParameter("@EmpID",employee.EmpID),
+                 new SqlParameter("@EmpName",employee.EmpName),
+                 new SqlParameter("@DeptID",employee.DeptID),
+                 new SqlParameter("@CourseDuration",employee.CourseDuration)
+            };
+            var data = context.Database.ExecuteSqlCommand("SPUpdateEmployee @EmpID , @EmpName , @DeptID , @CourseDuration", parameters2);
+            Console.WriteLine("Row changed="+data);
 
             Console.Read();
         }
